@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Trade Manager",
+  "version": "1.0",
+  "description": "Manage trades across multiple accounts and platforms.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon.png"
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["scripts/content.js"]
+    }
+  ],
+  "permissions": ["storage", "activeTab", "scripting", "notifications"],
+  "host_permissions": ["https://*/*"]
+}
