@@ -1,26 +1,37 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'public/manifest.json',
+          dest: '.',
+        },
+      ],
+    }),
+  ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, './src'),
     },
   },
   build: {
-    outDir: 'dist',
+    outDir: 'build',
     rollupOptions: {
       input: {
-        popup: 'popup.html',
-        background: 'src/extension/background.ts',
-        content: 'src/extension/content.ts',
+        main: './index.html',
+        background: './src/extensions/background.ts',
+        content: './src/extensions/content.ts',
       },
       output: {
-        entryFileNames: 'scripts/[name].js',
-        chunkFileNames: 'scripts/[name].js',
-        assetFileNames: 'assets/[name].[ext]',
+        entryFileNames: '[name].js',
       },
     },
   },

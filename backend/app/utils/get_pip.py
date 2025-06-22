@@ -1,0 +1,9 @@
+DEFAULT_SL_PIPS = 40
+DEFAULT_TP_PIPS = 100
+
+PIP_VALUES = {
+    "FOREX": 0.0001,
+    "CRYPTO": 0.01,
+    "STOCK": 0.1,
+    "XAUUSD": 0.1  # Gold
+}

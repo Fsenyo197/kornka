@@ -1,38 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import Home from '@/pages/Home';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AuthLayout from '@/layouts/AuthLayout';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Trade from '@/pages/dashboard/Trade';
+import Analytics from '@/pages/dashboard/Analytics';
+import DashboardLayout from '@/layouts/DashboardLayout';
+import EditProfile from '@/pages/profile/EditProfile';
+import Settings from '@/pages/profile/Settings';
 
 const Layout: React.FC = () => {
   return (
     <Router>
       <div className="min-h-screen flex flex-col">
-        <header className="bg-blue-500 p-4 text-white">
-          <nav className="container mx-auto">
-            <ul className="flex gap-4">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
-        <main className="flex-grow container mx-auto p-4">
+        <Header />
+        <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/auth/*" element={<AuthLayout />} />
+            <Route path="/" element={<DashboardLayout />}>
+              <Route index element={<Trade />} />
+              <Route path="trade" element={<Trade />} />
+              <Route path="analytics" element={<Analytics />} />
+            </Route>
+            {/* Profile Routes */}
+            <Route path="/profile/edit" element={<EditProfile />} />
+            <Route path="/profile/settings" element={<Settings />} />
           </Routes>
         </main>
-        <footer className="bg-blue-500 p-4 text-white text-center">
-          Trade Manager © 2025
-        </footer>
+        <Footer />
       </div>
     </Router>
   );
